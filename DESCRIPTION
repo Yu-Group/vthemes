@@ -28,3 +28,4 @@ Imports:
     htmltools,
     rmarkdown,
     scales
+VignetteBuilder: knitr
