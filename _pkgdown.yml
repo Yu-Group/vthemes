@@ -2,7 +2,7 @@ reference:
   - title: "R Markdown Themes"
     contents:
       - vmodern
-  - title: "`ggplot2` Themes and Color Palettes"
+  - title: "ggplot2 Themes and Color Palettes"
     contents:
       - theme_vmodern
       - theme_blank
@@ -12,7 +12,7 @@ reference:
   - subtitle: "R Markdown"
     contents:
       - subchunkify
-  - subtitle: "`ggplot2`"
+  - subtitle: "ggplot2"
     contents:
       - get_aesthetics
   - subtitle: "Tables"

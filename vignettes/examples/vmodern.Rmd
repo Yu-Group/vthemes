@@ -1,0 +1,16 @@
+---
+title: "vmodern template example"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  vthemes::vmodern:
+    code_folding: show
+    lightbox: true
+pkgdown:
+  as_is: true
+---
+
+
+```{r, results="asis", echo=FALSE, message=FALSE, warning=FALSE}
+res <- knitr::knit_child('_example_body.Rmd', quiet = TRUE)
+cat(res, sep = '\n')
+```
