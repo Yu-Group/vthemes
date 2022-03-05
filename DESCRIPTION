@@ -1,0 +1,29 @@
+Package: vthemes
+Title: Modern Themes for `ggplot2` and R Markdown Documents
+Version: 0.0.0.9000
+Authors@R: 
+    person("Tiffany", "Tang", , "tiffany.tang@berkeley.edu", role = c("aut", "cre"))
+Description: Some modern themes and utility functions for making beautiful `ggplot2` plots and R Markdown documents.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Suggests: 
+    testthat (>= 3.0.0),
+    vdiffr
+Config/testthat/edition: 3
+Imports: 
+    stringr,
+    magrittr,
+    dplyr,
+    ggplot2,
+    viridis,
+    viridisLite,
+    purrr,
+    knitr,
+    kableExtra,
+    DT,
+    bookdown,
+    htmltools,
+    rmarkdown,
+    scales

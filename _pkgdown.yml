@@ -1,0 +1,22 @@
+reference:
+  - title: "R Markdown Themes"
+    contents:
+      - vmodern
+  - title: "`ggplot2` Themes and Color Palettes"
+    contents:
+      - theme_vmodern
+      - theme_blank
+      - scale_color_vmodern
+      - vmodern_pal
+  - title: "Utility Functions"
+  - subtitle: "R Markdown"
+    contents:
+      - subchunkify
+  - subtitle: "`ggplot2`"
+    contents:
+      - get_aesthetics
+  - subtitle: "Tables"
+    contents:
+      - pretty_DT
+      - pretty_kable
+      - pretty_table
