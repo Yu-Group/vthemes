@@ -1,0 +1,197 @@
+---
+title: "vmodern Theme"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  vthemes::vmodern:
+    code_folding: show
+    lightbox: true
+pkgdown:
+  as_is: true
+vignette: >
+  %\VignetteIndexEntry{vmodern}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+library(vthemes)
+library(ggplot2)
+library(dplyr)
+
+## Global options
+options(max.print = "80")
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  cache = FALSE, 
+  message = FALSE, 
+  warning = FALSE
+)
+opts_knit$set(width = 80)
+```
+
+# Code Styling
+
+### Syntax Highlighting
+
+Code with syntax highlighting:
+
+```{r sh}
+hello <- function(name) {
+  cat(sprintf("Hello, %s!", name))
+}
+
+hello("world")
+```
+
+### Verbatim Output
+
+```{r iris-str}
+str(iris)
+```
+
+# Markdown
+
+A list:
+
+1. One
+2. Two
+3. Three
+    - hello
+    - world
+
+**bold**, *italics*, <del>strikethrough</del>.
+
+A blockquote :
+
+> Hello! This is a blockquote.
+
+A [link](https://www.r-project.org/) or url: https://www.r-project.org/
+
+Some math:
+
+\begin{align*}
+y = X\beta + \epsilon
+\end{align*}
+
+Now some headers:
+
+## Level 2
+
+### Level 3
+
+#### Level 4
+
+##### Level 5
+
+
+# Tabsets
+
+The `vmodern` R markdown theme comes with five preset tab styles.
+
+- Traditional Tabs: `{.tabset}`
+- Traditional Pills: `{.tabset .tabset-pills}`
+- Modern Tabs: `{.tabset .tabset-vmodern}`
+- Modern Square Pills: `{.tabset .tabset-pills .tabset-square}`
+- Modern Circle Pills: `{.tabset .tabset-pills .tabset-circle}`
+
+## Traditional {.tabset}
+
+### Tab 1
+
+### Tab 2
+
+### Tab 3
+
+## Pills {.tabset .tabset-pills}
+
+### Tab 1
+
+### Tab 2
+
+### Tab 3
+
+## vmodern Tabs {.tabset .tabset-vmodern}
+
+### Tab 1
+
+### Tab 2
+
+### Tab 3
+
+## Grey Square Tabs {.tabset .tabset-pills .tabset-square}
+
+### Tab 1
+
+### Tab 2
+
+### Tab 3
+
+## Grey Circle Tabs {.tabset .tabset-pills .tabset-circle}
+
+### Tab 1
+
+### Tab 2
+
+### Tab 3
+
+
+# Figures
+
+A plot using the `vmodern` ggplot2 theme and a caption:
+
+```{r iris-fig, fig.cap = "A caption", fig.width = 8, fig.height = 4}
+ggplot(iris) +
+  aes(x = Sepal.Length, y = Sepal.Width, color = Species) +
+  geom_point() +
+  theme_vmodern() +
+  scale_color_vmodern(discrete = TRUE)
+```
+
+A sequence of plots generated in a for loop using `subchunkify()`:
+
+```{r iris-subchunkify, results = "asis"}
+for (feature in setdiff(colnames(iris), "Species")) {
+  hist_plot <- ggplot(iris) +
+    aes(x = .data[[feature]]) +
+    geom_histogram(bins = 12, color = "grey98", fill = "#3B7EA1") +
+    labs(y = "Frequency", title = feature) +
+    theme_vmodern()
+  subchunkify(hist_plot, i = sprintf("histogram-%s", feature), 
+              fig_height = 4, fig_width = 8)
+}
+```
+
+
+# Tables
+
+A table using `pretty_kable()`:
+
+```{r table-kable}
+iris %>%
+  group_by(Species) %>%
+  summarise(across(.fns = mean)) %>%
+  pretty_kable(
+    digits = 2, 
+    sigfig = FALSE,
+    caption = "Mean of each iris feature with the maximum value bolded in blue", 
+    format = "html", 
+    bold_margin = 2, 
+    bold_function = ". == max(.)",
+    bold_color = "red",
+    bold_scheme = c(FALSE, TRUE, TRUE, TRUE, TRUE)
+  )
+```
+
+A table using `pretty_DT()`:
+
+```{r table-dt}
+pretty_DT(iris, digits = 2, sigfig = FALSE, 
+          caption = "Iris dataset", rownames = FALSE)
+```
+
+Note that both `pretty_kable()` and `pretty_DT()` enable convenient bolding options.
+
+
+

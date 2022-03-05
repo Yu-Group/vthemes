@@ -3,4 +3,3 @@
 ^LICENSE\.md$
 ^\.github$
 ^README\.Rmd$
-vignettes/examples
