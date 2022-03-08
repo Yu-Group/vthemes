@@ -65,11 +65,11 @@ in the R Markdown yaml header as follows:
 ---
 title: Document Title
 author: Tiffany Tang
-date: March 04, 2022
+date: March 07, 2022
 output:
   vthemes::vmodern
 ---
 ```
 
 [![vmodern
-example](man/figures/vmodern.png)](https://yu-group.github.io/vthemes/articles/examples/vmodern.html)
+example](man/figures/vmodern.png)](https://yu-group.github.io/vthemes/vmodern.html)

@@ -5,12 +5,12 @@ output:
   vthemes::vmodern:
     code_folding: show
     lightbox: true
-pkgdown:
-  as_is: true
-vignette: >
-  %\VignetteIndexEntry{vmodern}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+# pkgdown:
+#   as_is: true
+# vignette: >
+#   %\VignetteIndexEntry{vmodern}
+#   %\VignetteEngine{knitr::rmarkdown}
+#   %\VignetteEncoding{UTF-8}
 ---
 
 

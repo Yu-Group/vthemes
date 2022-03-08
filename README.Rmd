@@ -70,4 +70,4 @@ output:
 ---
 ```
 
-[![vmodern example](man/figures/vmodern.png)](https://yu-group.github.io/vthemes/articles/examples/vmodern.html)
+[![vmodern example](man/figures/vmodern.png)](https://yu-group.github.io/vthemes/vmodern.html)

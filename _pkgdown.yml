@@ -20,3 +20,6 @@ reference:
       - pretty_DT
       - pretty_kable
       - pretty_table
+
+template:
+  assets: vmodern-example
