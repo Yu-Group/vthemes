@@ -26,5 +26,6 @@ Imports:
     bookdown,
     htmltools,
     rmarkdown,
-    scales
+    scales,
+    R.utils
 VignetteBuilder: knitr

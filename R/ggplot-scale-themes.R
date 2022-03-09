@@ -65,13 +65,31 @@ NULL
 #' @export
 scale_colour_vmodern <- function(discrete = FALSE, viridis = FALSE,
                                  option = "plasma", ...) {
+  dots_list <- list(...)
+  if (identical(dots_list, list())) {
+    dots_list <- NULL
+  }
+
   if (discrete) {
-    ggplot2::discrete_scale(
-      "colour", "vmodern", vmodern_pal(viridis = viridis, option = option), ...
+    R.utils::doCall(
+      ggplot2::discrete_scale,
+      args = dots_list,
+      alwaysArgs = list(
+        aesthetics = "colour",
+        scale_name = "vmodern",
+        palette = vmodern_pal(viridis = viridis, option = option)
+      )
     )
   } else {
-    viridis::scale_colour_viridis(
-      discrete = FALSE, option = option, begin = 0, end = 0.95, ...
+    R.utils::doCall(
+      viridis::scale_colour_viridis,
+      args = dots_list,
+      alwaysArgs = list(
+        discrete = FALSE,
+        option = option,
+        begin = 0,
+        end = 0.95
+      )
     )
   }
 }
@@ -88,13 +106,31 @@ scale_color_vmodern <- scale_colour_vmodern
 #' @export
 scale_fill_vmodern <- function(discrete = FALSE, viridis = FALSE,
                                option = "plasma", ...) {
+  dots_list <- list(...)
+  if (identical(dots_list, list())) {
+    dots_list <- NULL
+  }
+
   if (discrete) {
-    ggplot2::discrete_scale(
-      "fill", "vmodern", vmodern_pal(viridis = viridis, option = option), ...
+    R.utils::doCall(
+      ggplot2::discrete_scale,
+      args = dots_list,
+      alwaysArgs = list(
+        aesthetics = "fill",
+        scale_name = "vmodern",
+        palette = vmodern_pal(viridis = viridis, option = option)
+      )
     )
   } else {
-    viridis::scale_fill_viridis(
-      discrete = FALSE, option = option, begin = 0, end = 0.95, ...
+    R.utils::doCall(
+      viridis::scale_fill_viridis,
+      args = dots_list,
+      alwaysArgs = list(
+        discrete = FALSE,
+        option = option,
+        begin = 0,
+        end = 0.95
+      )
     )
   }
 }
