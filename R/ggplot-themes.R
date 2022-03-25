@@ -120,9 +120,9 @@ theme_vmodern <- function(base_family = "",
       legend.title = ggplot2::element_text(
         size = legend_title_size, face = "bold"
       ),
-      plot.title = ggplot2::element_text(size = title_size, face = "bold"),
-      ...
-    )
+      plot.title = ggplot2::element_text(size = title_size, face = "bold")
+    ) +
+    ggplot2::theme(...)
 
   return(thm)
 }
