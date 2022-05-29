@@ -52,11 +52,26 @@ levels is &lt;= 8. Otherwise, the discrete <code>viridis</code> color palette is
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">scale_colour_vmodern</span><span class="op">(</span>discrete <span class="op">=</span> <span class="cn">FALSE</span>, viridis <span class="op">=</span> <span class="cn">FALSE</span>, option <span class="op">=</span> <span class="st">"plasma"</span>, <span class="va">...</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">scale_colour_vmodern</span><span class="op">(</span>
+  discrete <span class="op">=</span> <span class="cn">FALSE</span>,
+  palette <span class="op">=</span> <span class="st">"high_contrast"</span>,
+  viridis_option <span class="op">=</span> <span class="st">"plasma"</span>,
+  <span class="va">...</span>
+<span class="op">)</span>
 
-<span class="fu">scale_color_vmodern</span><span class="op">(</span>discrete <span class="op">=</span> <span class="cn">FALSE</span>, viridis <span class="op">=</span> <span class="cn">FALSE</span>, option <span class="op">=</span> <span class="st">"plasma"</span>, <span class="va">...</span><span class="op">)</span>
+<span class="fu">scale_color_vmodern</span><span class="op">(</span>
+  discrete <span class="op">=</span> <span class="cn">FALSE</span>,
+  palette <span class="op">=</span> <span class="st">"high_contrast"</span>,
+  viridis_option <span class="op">=</span> <span class="st">"plasma"</span>,
+  <span class="va">...</span>
+<span class="op">)</span>
 
-<span class="fu">scale_fill_vmodern</span><span class="op">(</span>discrete <span class="op">=</span> <span class="cn">FALSE</span>, viridis <span class="op">=</span> <span class="cn">FALSE</span>, option <span class="op">=</span> <span class="st">"plasma"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu">scale_fill_vmodern</span><span class="op">(</span>
+  discrete <span class="op">=</span> <span class="cn">FALSE</span>,
+  palette <span class="op">=</span> <span class="st">"high_contrast"</span>,
+  viridis_option <span class="op">=</span> <span class="st">"plasma"</span>,
+  <span class="va">...</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -64,20 +79,14 @@ levels is &lt;= 8. Otherwise, the discrete <code>viridis</code> color palette is
     <dl><dt>discrete</dt>
 <dd><p>Generate a discrete palette? (default: <code>FALSE</code> -
 generate continuous palette).</p></dd>
-<dt>viridis</dt>
-<dd><p>Logical indicating whether or not to use the <code>viridis</code>
-scheme.</p></dd>
-<dt>option</dt>
-<dd><p>A character string indicating the color map option to use.
-Eight options are available:</p><ul><li><p>"magma" (or "A")</p></li>
-<li><p>"inferno" (or "B")</p></li>
-<li><p>"plasma" (or "C")</p></li>
-<li><p>"viridis" (or "D")</p></li>
-<li><p>"cividis" (or "E")</p></li>
-<li><p>"rocket" (or "F")</p></li>
-<li><p>"mako" (or "G")</p></li>
-<li><p>"turbo" (or "H")</p></li>
-</ul></dd>
+<dt>palette</dt>
+<dd><p>Name of the color palette. Must be one of "high_contrast",
+"viridis", "bright_contrast", "bright_contrast2", "muted", "muted2".</p></dd>
+<dt>viridis_option</dt>
+<dd><p>A character string indicating the color map option to
+use for viridis. Options are "magma" (or "A"), "inferno" (or "B"),
+"plasma" (or "C"), "viridis" (or "D"), "cividis" (or "E"), "rocket"
+(or "F"), "mako" (or "G"), "turbo" (or "H").</p></dd>
 <dt>...</dt>
 <dd><p>Additional arguments to pass to <code><a href="https://ggplot2.tidyverse.org/reference/discrete_scale.html" class="external-link">ggplot2::discrete_scale()</a></code>
 if <code>discrete == TRUE</code> and to <code><a href="https://sjmgarnier.github.io/viridis/reference/scale_viridis.html" class="external-link">viridis::scale_colour_viridis()</a></code>
@@ -112,7 +121,7 @@ if <code>discrete == FALSE</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>
