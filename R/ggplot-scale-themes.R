@@ -1,29 +1,56 @@
 #' vmodern color palette (discrete)
 #'
 #' @description The vmodern theme integrates a slight modification of the
-#'   'Dark2' color palette from `RColorBrewer` and the `viridis` palette. The
-#'   modified 'Dark2' palette is used unless the number of values exceeds 8 or
-#'   if viridis is explicitly requested.
+#'   'Dark2' color palette from `RColorBrewer`, the `viridis` palette, and other
+#'   custom color palettes.
 #'
-#' @inheritParams viridis::viridis_pal
-#' @param viridis Logical indicating whether or not to use the \code{viridis}
-#'   scheme.
+#' @param palette Name of the color palette. Must be one of "high_contrast",
+#'   "viridis", "bright_contrast", "bright_contrast2", "muted", "muted2".
+#' @param viridis_option A character string indicating the color map option to
+#'   use for viridis. Options are "magma" (or "A"), "inferno" (or "B"),
+#'   "plasma" (or "C"), "viridis" (or "D"), "cividis" (or "E"), "rocket"
+#'   (or "F"), "mako" (or "G"), "turbo" (or "H").
 #'
 #' @examples
 #' library(scales)
 #' show_col(vmodern_pal()(8))
-#' show_col(vmodern_pal(viridis = TRUE)(8))
+#' show_col(vmodern_pal(palette = "viridis")(8))
 #'
 #' @export
-vmodern_pal <- function(viridis = FALSE, option = "plasma") {
+vmodern_pal <- function(palette = "high_contrast", viridis_option = "plasma") {
+  palette_choices <- c("high_contrast", "viridis", "bright_contrast",
+                       "bright_contrast2", "muted", "muted2")
+  palette <- match.arg(palette, choices = palette_choices)
   f <- function(n) {
-    if ((n <= 8) && !viridis) {
+    max_n <- dplyr::case_when(
+      palette == "high_contrast" ~ 8,
+      palette == "bright_contrast" ~ 4,
+      palette == "bright_contrast2" ~ 5,
+      palette == "muted" ~ 6,
+      palette == "muted2" ~ 7,
+      palette == "viridis" ~ Inf
+    )
+    if (n > max_n) {
+      warning("Number of levels is greater than number of colors in requested palette. Using viridis color palette instead.")
+    }
+    if ((n <= max_n) && (palette == "high_contrast")) {
       # color palette is a slight modification of
       # RColorBrewer::brewer.pal(n = 8, name = "Dark2")
       pal <- c("#FF9300", "#1B9E77", "#7570B3", "#E7298A",
                "#66A61E", "#E6AB02", "#A6761D", "#666666")[1:n]
+    } else if ((n <= max_n) && (palette == "bright_contrast")) {
+      pal <- c("orange", "#71beb7", "#218a1e", "#cc3399")[1:n]
+    } else if ((n <= max_n) && (palette == "bright_contrast2")) {
+      pal <- c("black", "orange", "#71beb7", "#218a1e", "#cc3399")[1:n]
+    } else if ((n <= max_n) && (palette == "muted")) {
+      pal <- c("#ff9902", "#4a86e8", "#a64d79",
+               "#6caa52", "#674ea7", "#0f459f")[1:n]
+    } else if ((n <= max_n) && (palette == "muted2")) {
+      pal <- c("black", "#ff9902", "#4a86e8", "#a64d79",
+               "#6caa52", "#674ea7", "#0f459f")[1:n]
     } else {
-      pal <- viridisLite::viridis(n, begin = 0, end = 0.95, option = option)
+      pal <- viridisLite::viridis(n, begin = 0, end = 0.95,
+                                  option = viridis_option)
     }
   }
   return(f)
@@ -63,8 +90,8 @@ NULL
 #' @rdname scale_color_vmodern
 #'
 #' @export
-scale_colour_vmodern <- function(discrete = FALSE, viridis = FALSE,
-                                 option = "plasma", ...) {
+scale_colour_vmodern <- function(discrete = FALSE, palette = "high_contrast",
+                                 viridis_option = "plasma", ...) {
   dots_list <- list(...)
   if (identical(dots_list, list())) {
     dots_list <- NULL
@@ -77,7 +104,8 @@ scale_colour_vmodern <- function(discrete = FALSE, viridis = FALSE,
       alwaysArgs = list(
         aesthetics = "colour",
         scale_name = "vmodern",
-        palette = vmodern_pal(viridis = viridis, option = option)
+        palette = vmodern_pal(palette = palette,
+                              viridis_option = viridis_option)
       )
     )
   } else {
@@ -86,7 +114,7 @@ scale_colour_vmodern <- function(discrete = FALSE, viridis = FALSE,
       args = dots_list,
       alwaysArgs = list(
         discrete = FALSE,
-        option = option,
+        option = viridis_option,
         begin = 0,
         end = 0.95
       )
@@ -104,8 +132,8 @@ scale_color_vmodern <- scale_colour_vmodern
 #' @rdname scale_color_vmodern
 #'
 #' @export
-scale_fill_vmodern <- function(discrete = FALSE, viridis = FALSE,
-                               option = "plasma", ...) {
+scale_fill_vmodern <- function(discrete = FALSE, palette = "high_contrast",
+                               viridis_option = "plasma", ...) {
   dots_list <- list(...)
   if (identical(dots_list, list())) {
     dots_list <- NULL
@@ -118,7 +146,8 @@ scale_fill_vmodern <- function(discrete = FALSE, viridis = FALSE,
       alwaysArgs = list(
         aesthetics = "fill",
         scale_name = "vmodern",
-        palette = vmodern_pal(viridis = viridis, option = option)
+        palette = vmodern_pal(palette = palette,
+                              viridis_option = viridis_option)
       )
     )
   } else {
@@ -127,7 +156,7 @@ scale_fill_vmodern <- function(discrete = FALSE, viridis = FALSE,
       args = dots_list,
       alwaysArgs = list(
         discrete = FALSE,
-        option = option,
+        option = viridis_option,
         begin = 0,
         end = 0.95
       )

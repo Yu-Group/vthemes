@@ -6,31 +6,38 @@
 \alias{scale_fill_vmodern}
 \title{vmodern color scales}
 \usage{
-scale_colour_vmodern(discrete = FALSE, viridis = FALSE, option = "plasma", ...)
+scale_colour_vmodern(
+  discrete = FALSE,
+  palette = "high_contrast",
+  viridis_option = "plasma",
+  ...
+)
 
-scale_color_vmodern(discrete = FALSE, viridis = FALSE, option = "plasma", ...)
+scale_color_vmodern(
+  discrete = FALSE,
+  palette = "high_contrast",
+  viridis_option = "plasma",
+  ...
+)
 
-scale_fill_vmodern(discrete = FALSE, viridis = FALSE, option = "plasma", ...)
+scale_fill_vmodern(
+  discrete = FALSE,
+  palette = "high_contrast",
+  viridis_option = "plasma",
+  ...
+)
 }
 \arguments{
 \item{discrete}{Generate a discrete palette? (default: \code{FALSE} -
 generate continuous palette).}
 
-\item{viridis}{Logical indicating whether or not to use the \code{viridis}
-scheme.}
+\item{palette}{Name of the color palette. Must be one of "high_contrast",
+"viridis", "bright_contrast", "bright_contrast2", "muted", "muted2".}
 
-\item{option}{A character string indicating the color map option to use.
-Eight options are available:
-\itemize{
- \item "magma" (or "A")
- \item "inferno" (or "B")
- \item "plasma" (or "C")
- \item "viridis" (or "D")
- \item "cividis" (or "E")
- \item "rocket" (or "F")
- \item "mako" (or "G")
- \item "turbo" (or "H")
-}}
+\item{viridis_option}{A character string indicating the color map option to
+use for viridis. Options are "magma" (or "A"), "inferno" (or "B"),
+"plasma" (or "C"), "viridis" (or "D"), "cividis" (or "E"), "rocket"
+(or "F"), "mako" (or "G"), "turbo" (or "H").}
 
 \item{...}{Additional arguments to pass to \code{ggplot2::discrete_scale()}
 if \code{discrete == TRUE} and to \code{viridis::scale_colour_viridis()}

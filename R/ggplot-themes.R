@@ -85,7 +85,7 @@ theme_vmodern <- function(base_family = "",
       size_preset == "medium" ~ 12,
       TRUE ~ 16 + num_x * 2
     )
-    title_text_size <- dplyr::case_when(
+    title_size <- dplyr::case_when(
       size_preset == "small" ~ 12,
       size_preset == "medium" ~ 16,
       TRUE ~ 20 + num_x * 2

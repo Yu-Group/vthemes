@@ -4,34 +4,25 @@
 \alias{vmodern_pal}
 \title{vmodern color palette (discrete)}
 \usage{
-vmodern_pal(viridis = FALSE, option = "plasma")
+vmodern_pal(palette = "high_contrast", viridis_option = "plasma")
 }
 \arguments{
-\item{viridis}{Logical indicating whether or not to use the \code{viridis}
-scheme.}
+\item{palette}{Name of the color palette. Must be one of "high_contrast",
+"viridis", "bright_contrast", "bright_contrast2", "muted", "muted2".}
 
-\item{option}{A character string indicating the color map option to use.
-Eight options are available:
-\itemize{
- \item "magma" (or "A")
- \item "inferno" (or "B")
- \item "plasma" (or "C")
- \item "viridis" (or "D")
- \item "cividis" (or "E")
- \item "rocket" (or "F")
- \item "mako" (or "G")
- \item "turbo" (or "H")
-}}
+\item{viridis_option}{A character string indicating the color map option to
+use for viridis. Options are "magma" (or "A"), "inferno" (or "B"),
+"plasma" (or "C"), "viridis" (or "D"), "cividis" (or "E"), "rocket"
+(or "F"), "mako" (or "G"), "turbo" (or "H").}
 }
 \description{
 The vmodern theme integrates a slight modification of the
-'Dark2' color palette from \code{RColorBrewer} and the \code{viridis} palette. The
-modified 'Dark2' palette is used unless the number of values exceeds 8 or
-if viridis is explicitly requested.
+'Dark2' color palette from \code{RColorBrewer}, the \code{viridis} palette, and other
+custom color palettes.
 }
 \examples{
 library(scales)
 show_col(vmodern_pal()(8))
-show_col(vmodern_pal(viridis = TRUE)(8))
+show_col(vmodern_pal(palette = "viridis")(8))
 
 }

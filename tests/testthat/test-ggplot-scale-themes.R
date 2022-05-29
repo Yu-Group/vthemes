@@ -5,7 +5,7 @@ test_that("ggplot scale themes work properly", {
   vdiffr::expect_doppelganger("vmodern_pal1",
                               show_col(vmodern_pal()(8)))
   vdiffr::expect_doppelganger("vmodern_pal2",
-                              show_col(vmodern_pal(viridis = TRUE)(8)))
+                              show_col(vmodern_pal(palette = "viridis")(8)))
 
   plt <- ggplot(iris) +
     aes(x = Sepal.Length, y = Sepal.Width, color = Petal.Length) +
