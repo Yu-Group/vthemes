@@ -32,11 +32,10 @@ vmodern(
 \item{number_sections}{\code{TRUE} to number section headings}
 
 \item{code_folding}{Enable document readers to toggle the display of R code
-chunks. Specify \code{"none"} to display all code chunks (assuming
-they were knit with \code{echo = TRUE}). Specify \code{"hide"} to hide all R
-code chunks by default (users can show hidden code chunks either
-individually or document-wide). Specify \code{"show"} to show all R code
-chunks by default.}
+chunks. Specify \code{"none"} to display all code chunks. Specify
+\code{"hide"} or \code{"show"} to hide or show all R code chunks by
+default, and let readers toggle the states on browsers. See the
+\emph{Code folding}}
 
 \item{code_download}{Embed the Rmd source code within the document and provide
 a link that can be used by readers to download the code.}
