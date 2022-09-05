@@ -54,72 +54,101 @@ is returned.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_table</span><span class="op">(</span>
-  <span class="va">X</span>,
-  html <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">is_html_output</a></span><span class="op">(</span><span class="op">)</span>,
-  digits <span class="op">=</span> <span class="fl">3</span>,
-  sigfig <span class="op">=</span> <span class="cn">TRUE</span>,
-  rownames <span class="op">=</span> <span class="cn">TRUE</span>,
-  caption <span class="op">=</span> <span class="st">""</span>,
-  na_disp <span class="op">=</span> <span class="st">"NA"</span>,
-  bold_function <span class="op">=</span> <span class="cn">NULL</span>,
-  bold_margin <span class="op">=</span> <span class="cn">NULL</span>,
-  bold_scheme <span class="op">=</span> <span class="cn">TRUE</span>,
-  bold_color <span class="op">=</span> <span class="cn">NULL</span>,
-  html_options <span class="op">=</span> <span class="cn">NULL</span>,
-  latex_options <span class="op">=</span> <span class="cn">NULL</span>,
-  return_df <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_table</span><span class="op">(</span></span>
+<span>  <span class="va">X</span>,</span>
+<span>  html <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">is_html_output</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  digits <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  sigfig <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  rownames <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  caption <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  na_disp <span class="op">=</span> <span class="st">"NA"</span>,</span>
+<span>  bold_function <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bold_margin <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bold_scheme <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bold_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  html_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  latex_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_df <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>X</dt>
 <dd><p>Data frame or data matrix to display in table</p></dd>
+
+
 <dt>html</dt>
 <dd><p>Logical indicating whether the output should be in html format.
 If <code>FALSE</code>, output is in latex format.</p></dd>
+
+
 <dt>digits</dt>
 <dd><p>Number of digits to display for numeric values</p></dd>
+
+
 <dt>sigfig</dt>
 <dd><p>Logical. If <code>TRUE</code>, <code>digits</code> refers to the number of
 significant figures. If <code>FALSE</code>, <code>digits</code> refers to the number of
 decimal places.</p></dd>
+
+
 <dt>rownames</dt>
 <dd><p>Logical. Whether or not to show rownames in table. See
 <code><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">DT::datatable()</a></code> for details.</p></dd>
+
+
 <dt>caption</dt>
 <dd><p>The table caption.</p></dd>
+
+
 <dt>na_disp</dt>
 <dd><p>Character string to display if NA entry is found in table.</p></dd>
+
+
 <dt>bold_function</dt>
 <dd><p>Optional function string or vector of function strings
 to use for bolding entries, e.g. ". == max(.)" or ". &gt;= 0.5".</p></dd>
+
+
 <dt>bold_margin</dt>
 <dd><p>Specifies the margins of X that will be used to evaluate
 <code>bold_function</code> across, i.e., 0 = across entire matrix, 1 = across
 rows, and 2 = across columns. Required if <code>bold_function = TRUE</code>.</p></dd>
+
+
 <dt>bold_scheme</dt>
 <dd><p>Scalar or vector of logicals, indicating whether or not
 to apply <code>bold_function</code> to row if <code>bold_margin</code> = 1 and to
 column if <code>bold_margin</code> = 1, 2. Default is to apply bolding to all
 rows/columns.</p></dd>
+
+
 <dt>bold_color</dt>
 <dd><p>Color of bolded text.</p></dd>
+
+
 <dt>html_options</dt>
 <dd><p>List of additional named arguments to pass to
 <code><a href="pretty_DT.html">pretty_DT()</a></code>.</p></dd>
+
+
 <dt>latex_options</dt>
 <dd><p>List of additional named arguments to pass to
 <code><a href="pretty_kable.html">pretty_kable()</a></code>.</p></dd>
+
+
 <dt>return_df</dt>
 <dd><p>Logical. If <code>TRUE</code>, return data frame that was used
 as input into <code><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">DT::datatable()</a></code> in addition to the datatable output.
 If <code>FALSE</code>, only return the datatable output.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A DT table in html format if <code>html = TRUE</code> and a kable table in
+    
+
+<p>A DT table in html format if <code>html = TRUE</code> and a kable table in
 latex format if <code>html = FALSE</code>. In addition, if <code>return_df = TRUE</code>, the
 data frame that was used to create the table is returned.</p>
     </div>
@@ -136,7 +165,7 @@ data frame that was used to create the table is returned.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

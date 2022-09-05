@@ -50,38 +50,51 @@ R code chunk in R Markdown.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">subchunkify</span><span class="op">(</span>
-  <span class="va">g</span>,
-  <span class="va">i</span>,
-  fig_height <span class="op">=</span> <span class="fl">12</span>,
-  fig_width <span class="op">=</span> <span class="fl">10</span>,
-  caption <span class="op">=</span> <span class="st">"''"</span>,
-  add_class <span class="op">=</span> <span class="cn">NULL</span>,
-  other_args <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">subchunkify</span><span class="op">(</span></span>
+<span>  <span class="va">g</span>,</span>
+<span>  <span class="va">i</span>,</span>
+<span>  fig_height <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  fig_width <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  caption <span class="op">=</span> <span class="st">"''"</span>,</span>
+<span>  add_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  other_args <span class="op">=</span> <span class="st">""</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>g</dt>
 <dd><p>Plot or object to display in R Markdown output.</p></dd>
+
+
 <dt>i</dt>
 <dd><p>Chunk id. Should be unique for each plot or subchunk.</p></dd>
+
+
 <dt>fig_height</dt>
 <dd><p>Height of plot or output of subchunk (in inches). See
 <code>fig.height</code> in the knitr chunk options.</p></dd>
+
+
 <dt>fig_width</dt>
 <dd><p>Width of plot or output of subchunk (in inches). See
 <code>fig.width</code> in the knitr chunk options.</p></dd>
+
+
 <dt>caption</dt>
 <dd><p>Figure or subchunk caption. Should be surrounded by two sets
 of quotes, e.g., "'This is a valid caption.'" See <code>fig.cap</code> in the
 knitr chunk options.</p></dd>
+
+
 <dt>add_class</dt>
 <dd><p>Vector of css classes to add to object.</p></dd>
+
+
 <dt>other_args</dt>
 <dd><p>Other arguments to pass to knitr chunk header. Should be
 surrounded by two sets of quotes, e.g., "results='asis'".</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -100,7 +113,7 @@ surrounded by two sets of quotes, e.g., "results='asis'".</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
