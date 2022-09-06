@@ -104,16 +104,14 @@ test_that("pretty_DT works", {
     pretty_DT(
       iris[, c(5, 1:4)], rownames = FALSE,
       grouped_header = c(" " = 1, "Sepal" = 2, "Petal" = 2)
-    ) %>%
-      str()
+    )$x
   )
   expect_snapshot_output(
     pretty_DT(
       iris[, c(5, 1:4)], rownames = FALSE,
       grouped_header = c(" " = 1, "Sepal" = 2, "Petal" = 2),
       grouped_subheader = c("Species", "Length", "Width", "Length", "Width")
-    ) %>%
-      str()
+    )$x
   )
   expect_snapshot_output(
     pretty_DT(
@@ -121,7 +119,6 @@ test_that("pretty_DT works", {
       grouped_header = c(" " = 1, "Sepal" = 2, " " = 2),
       grouped_subheader = c("Species", "Length", "Width",
                             "Petal.Length", "Petal.Width")
-    ) %>%
-      str()
+    )$x
   )
 })
