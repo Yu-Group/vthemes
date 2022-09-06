@@ -16,6 +16,8 @@ pretty_DT(
   bold_margin = NULL,
   bold_scheme = T,
   bold_color = NULL,
+  grouped_header = NULL,
+  grouped_subheader = NULL,
   options = list(),
   return_df = FALSE,
   ...
@@ -54,6 +56,14 @@ rows/columns.}
 
 \item{bold_color}{Color of bolded text.}
 
+\item{grouped_header}{A (named) character vector with \code{colspan} as values.
+For example, \code{c(" " = 1, "title" = 2)} can be used to create a new header
+row for a 3-column table with "title" spanning across column 2 and 3. Used
+to group columns.}
+
+\item{grouped_subheader}{A character vector with the names of the columns
+below the grouped header row.}
+
 \item{options}{See \code{options} argument in \code{\link[DT:datatable]{DT::datatable()}}.}
 
 \item{return_df}{Logical. If \code{TRUE}, return data frame that was used
@@ -87,4 +97,17 @@ pretty_DT(iris \%>\% dplyr::select(-Species),
          sigfig = TRUE, caption = "Iris Data Table",
          na_disp = "NA", bold_function = ". == min(.)", bold_margin = 1,
          bold_scheme = TRUE, bold_color = "black")
+
+# Add grouped column header
+pretty_DT(iris[, c(5, 1:4)],
+          rownames = FALSE,
+          grouped_header = c(" " = 1, "Sepal" = 2, "Petal" = 2))
+pretty_DT(iris[, c(5, 1:4)],
+          rownames = FALSE,
+          grouped_header = c(" " = 1, "Sepal" = 2, "Petal" = 2),
+          grouped_subheader = c("Species", "Length", "Width", "Length", "Width"))
+pretty_DT(iris[, c(5, 1:4)],
+          rownames = FALSE,
+          grouped_header = c(" " = 1, "Sepal" = 2, " " = 2),
+          grouped_subheader = c("Species", "Length", "Width", "Petal.Length", "Petal.Width"))
 }

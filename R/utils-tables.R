@@ -249,6 +249,12 @@ pretty_kable <- function(X, digits = 3, sigfig = TRUE, escape = FALSE,
 #'   column if \code{bold_margin} = 1, 2. Default is to apply bolding to all
 #'   rows/columns.
 #' @param bold_color Color of bolded text.
+#' @param grouped_header A (named) character vector with `colspan` as values.
+#'   For example, `c(" " = 1, "title" = 2)` can be used to create a new header
+#'   row for a 3-column table with "title" spanning across column 2 and 3. Used
+#'   to group columns.
+#' @param grouped_subheader A character vector with the names of the columns
+#'   below the grouped header row.
 #' @param options See \code{options} argument in [DT::datatable()].
 #' @param return_df Logical. If \code{TRUE}, return data frame that was used
 #'   as input into \code{DT::datatable()} in addition to the datatable output.
@@ -276,11 +282,25 @@ pretty_kable <- function(X, digits = 3, sigfig = TRUE, escape = FALSE,
 #'          sigfig = TRUE, caption = "Iris Data Table",
 #'          na_disp = "NA", bold_function = ". == min(.)", bold_margin = 1,
 #'          bold_scheme = TRUE, bold_color = "black")
+#'
+#' # Add grouped column header
+#' pretty_DT(iris[, c(5, 1:4)],
+#'           rownames = FALSE,
+#'           grouped_header = c(" " = 1, "Sepal" = 2, "Petal" = 2))
+#' pretty_DT(iris[, c(5, 1:4)],
+#'           rownames = FALSE,
+#'           grouped_header = c(" " = 1, "Sepal" = 2, "Petal" = 2),
+#'           grouped_subheader = c("Species", "Length", "Width", "Length", "Width"))
+#' pretty_DT(iris[, c(5, 1:4)],
+#'           rownames = FALSE,
+#'           grouped_header = c(" " = 1, "Sepal" = 2, " " = 2),
+#'           grouped_subheader = c("Species", "Length", "Width", "Petal.Length", "Petal.Width"))
 #' @export
 pretty_DT <- function(X, digits = 3, sigfig = T,
                       escape = F, rownames = TRUE, caption = "", na_disp = "NA",
                       bold_function = NULL, bold_margin = NULL,
                       bold_scheme = T, bold_color = NULL,
+                      grouped_header = NULL, grouped_subheader = NULL,
                       options = list(), return_df = FALSE, ...) {
 
   if (sigfig) {
@@ -416,8 +436,56 @@ pretty_DT <- function(X, digits = 3, sigfig = T,
   colnames(dt_df) <- colnames(X)
 
   # make datatable
-  dt_out <- DT::datatable(dt_df, escape = escape, caption = caption,
-                          rownames = rownames, options = options, ...)
+  if (is.null(grouped_header)) {
+    dt_out <- DT::datatable(dt_df, escape = escape, caption = caption,
+                            rownames = rownames, options = options, ...)
+  } else {
+    grouped_header_expand <- rep(names(grouped_header), times = grouped_header)
+    if (is.null(grouped_subheader)) {
+      grouped_subheader <- colnames(X)
+    }
+
+    sketch <- htmltools::withTags(
+      htmltools::tags$table(
+        class = "display",
+        htmltools::tags$thead(
+          htmltools::tags$tr(
+            purrr::pmap(
+              list(grouped_header,
+                   names(grouped_header),
+                   1:length(grouped_header)),
+              function(ghead_span, ghead_id, i) {
+                if (ghead_id == " ") {
+                  idx <- cumsum(grouped_header)[i]
+                  lapply(
+                    (idx - ghead_span + 1):idx,
+                    function(x) {
+                      htmltools::tags$th(rowspan = 2, grouped_subheader[x])
+                    }
+                  )
+                } else {
+                  htmltools::tags$th(
+                    colspan = ghead_span, class = "th-group-header", ghead_id
+                  )
+                }
+              }
+            )
+          ),
+          htmltools::tags$tr(
+            purrr::map(
+              grouped_subheader[grouped_header_expand != " "],
+              function(gsubhead) {
+                htmltools::tags$th(class = "th-group-subheader", gsubhead)
+              }
+            )
+          )
+        )
+      )
+    )
+    dt_out <- DT::datatable(dt_df, escape = escape, caption = caption,
+                            rownames = rownames, options = options,
+                            container = sketch, ...)
+  }
 
   if (return_df) {
     return(list(dt = dt_out, df = dt_df))

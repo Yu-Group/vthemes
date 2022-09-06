@@ -3948,3 +3948,327 @@
     149  <span style=" font-weight: bold;    color: black !important;" >2.30</span>
     150  <span style=" font-weight: bold;    color: black !important;" >1.80</span>
 
+---
+
+    List of 8
+     $ x            :List of 7
+      ..$ filter   : chr "none"
+      ..$ vertical : logi FALSE
+      ..$ class    : chr "display"
+      ..$ caption  : chr "<caption></caption>"
+      ..$ data     :'data.frame':	150 obs. of  5 variables:
+      .. ..$ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+      .. ..$ Sepal.Length: chr [1:150] "<span style=\"     \" >5.10</span>" "<span style=\"     \" >4.90</span>" "<span style=\"     \" >4.70</span>" "<span style=\"     \" >4.60</span>" ...
+      .. ..$ Sepal.Width : chr [1:150] "<span style=\"     \" >3.50</span>" "<span style=\"     \" >3.00</span>" "<span style=\"     \" >3.20</span>" "<span style=\"     \" >3.10</span>" ...
+      .. ..$ Petal.Length: chr [1:150] "<span style=\"     \" >1.40</span>" "<span style=\"     \" >1.40</span>" "<span style=\"     \" >1.30</span>" "<span style=\"     \" >1.50</span>" ...
+      .. ..$ Petal.Width : chr [1:150] "<span style=\"     \" >0.200</span>" "<span style=\"     \" >0.200</span>" "<span style=\"     \" >0.200</span>" "<span style=\"     \" >0.200</span>" ...
+      ..$ container: chr "<table class=\"display\">\n  <thead>\n    <tr>\n      <th rowspan=\"2\">Species</th>\n      <th colspan=\"2\" c"| __truncated__
+      ..$ options  :List of 4
+      .. ..$ columnDefs  :List of 1
+      .. .. ..$ :List of 2
+      .. .. .. ..$ className: chr "dt-center"
+      .. .. .. ..$ targets  : int [1:5] 0 1 2 3 4
+      .. ..$ order       : list()
+      .. ..$ autoWidth   : logi FALSE
+      .. ..$ orderClasses: logi FALSE
+      .. ..- attr(*, "escapeIdx")= chr "false"
+      ..- attr(*, "colnames")= chr [1:5] "Species" "Sepal.Length" "Sepal.Width" "Petal.Length" ...
+      ..- attr(*, "rownames")= logi FALSE
+     $ width        : NULL
+     $ height       : NULL
+     $ sizingPolicy :List of 6
+      ..$ defaultWidth : NULL
+      ..$ defaultHeight: NULL
+      ..$ padding      : NULL
+      ..$ viewer       :List of 6
+      .. ..$ defaultWidth : NULL
+      .. ..$ defaultHeight: NULL
+      .. ..$ padding      : NULL
+      .. ..$ fill         : logi TRUE
+      .. ..$ suppress     : logi FALSE
+      .. ..$ paneHeight   : NULL
+      ..$ browser      :List of 5
+      .. ..$ defaultWidth : NULL
+      .. ..$ defaultHeight: NULL
+      .. ..$ padding      : NULL
+      .. ..$ fill         : logi FALSE
+      .. ..$ external     : logi FALSE
+      ..$ knitr        :List of 3
+      .. ..$ defaultWidth : chr "100%"
+      .. ..$ defaultHeight: chr "auto"
+      .. ..$ figure       : logi FALSE
+     $ dependencies :List of 4
+      ..$ :List of 10
+      .. ..$ name      : chr "jquery"
+      .. ..$ version   : chr "3.6.0"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "lib/3.6.0"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "jquery-3.6.0.min.js"
+      .. ..$ stylesheet: NULL
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : chr "jquerylib"
+      .. ..$ all_files : logi TRUE
+      .. ..- attr(*, "class")= chr "html_dependency"
+      ..$ :List of 10
+      .. ..$ name      : chr "dt-core"
+      .. ..$ version   : chr "1.11.3"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "/Library/Frameworks/R.framework/Versions/4.1/Resources/library/DT/htmlwidgets/lib/datatables"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "js/jquery.dataTables.min.js"
+      .. ..$ stylesheet: chr [1:2] "css/jquery.dataTables.min.css" "css/jquery.dataTables.extra.css"
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : NULL
+      .. ..$ all_files : logi FALSE
+      .. ..- attr(*, "class")= chr "html_dependency"
+      ..$ :List of 10
+      .. ..$ name      : chr "jquery"
+      .. ..$ version   : chr "3.5.1"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "lib/jquery"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "jquery.min.js"
+      .. ..$ stylesheet: NULL
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : chr "crosstalk"
+      .. ..$ all_files : logi TRUE
+      .. ..- attr(*, "class")= chr "html_dependency"
+      ..$ :List of 10
+      .. ..$ name      : chr "crosstalk"
+      .. ..$ version   : chr "1.2.0"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "www"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "js/crosstalk.min.js"
+      .. ..$ stylesheet: chr "css/crosstalk.min.css"
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : chr "crosstalk"
+      .. ..$ all_files : logi TRUE
+      .. ..- attr(*, "class")= chr "html_dependency"
+     $ elementId    : NULL
+     $ preRenderHook:function (instance)  
+     $ jsHooks      : list()
+     - attr(*, "class")= chr [1:2] "datatables" "htmlwidget"
+     - attr(*, "package")= chr "DT"
+
+---
+
+    List of 8
+     $ x            :List of 7
+      ..$ filter   : chr "none"
+      ..$ vertical : logi FALSE
+      ..$ class    : chr "display"
+      ..$ caption  : chr "<caption></caption>"
+      ..$ data     :'data.frame':	150 obs. of  5 variables:
+      .. ..$ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+      .. ..$ Sepal.Length: chr [1:150] "<span style=\"     \" >5.10</span>" "<span style=\"     \" >4.90</span>" "<span style=\"     \" >4.70</span>" "<span style=\"     \" >4.60</span>" ...
+      .. ..$ Sepal.Width : chr [1:150] "<span style=\"     \" >3.50</span>" "<span style=\"     \" >3.00</span>" "<span style=\"     \" >3.20</span>" "<span style=\"     \" >3.10</span>" ...
+      .. ..$ Petal.Length: chr [1:150] "<span style=\"     \" >1.40</span>" "<span style=\"     \" >1.40</span>" "<span style=\"     \" >1.30</span>" "<span style=\"     \" >1.50</span>" ...
+      .. ..$ Petal.Width : chr [1:150] "<span style=\"     \" >0.200</span>" "<span style=\"     \" >0.200</span>" "<span style=\"     \" >0.200</span>" "<span style=\"     \" >0.200</span>" ...
+      ..$ container: chr "<table class=\"display\">\n  <thead>\n    <tr>\n      <th rowspan=\"2\">Species</th>\n      <th colspan=\"2\" c"| __truncated__
+      ..$ options  :List of 4
+      .. ..$ columnDefs  :List of 1
+      .. .. ..$ :List of 2
+      .. .. .. ..$ className: chr "dt-center"
+      .. .. .. ..$ targets  : int [1:5] 0 1 2 3 4
+      .. ..$ order       : list()
+      .. ..$ autoWidth   : logi FALSE
+      .. ..$ orderClasses: logi FALSE
+      .. ..- attr(*, "escapeIdx")= chr "false"
+      ..- attr(*, "colnames")= chr [1:5] "Species" "Sepal.Length" "Sepal.Width" "Petal.Length" ...
+      ..- attr(*, "rownames")= logi FALSE
+     $ width        : NULL
+     $ height       : NULL
+     $ sizingPolicy :List of 6
+      ..$ defaultWidth : NULL
+      ..$ defaultHeight: NULL
+      ..$ padding      : NULL
+      ..$ viewer       :List of 6
+      .. ..$ defaultWidth : NULL
+      .. ..$ defaultHeight: NULL
+      .. ..$ padding      : NULL
+      .. ..$ fill         : logi TRUE
+      .. ..$ suppress     : logi FALSE
+      .. ..$ paneHeight   : NULL
+      ..$ browser      :List of 5
+      .. ..$ defaultWidth : NULL
+      .. ..$ defaultHeight: NULL
+      .. ..$ padding      : NULL
+      .. ..$ fill         : logi FALSE
+      .. ..$ external     : logi FALSE
+      ..$ knitr        :List of 3
+      .. ..$ defaultWidth : chr "100%"
+      .. ..$ defaultHeight: chr "auto"
+      .. ..$ figure       : logi FALSE
+     $ dependencies :List of 4
+      ..$ :List of 10
+      .. ..$ name      : chr "jquery"
+      .. ..$ version   : chr "3.6.0"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "lib/3.6.0"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "jquery-3.6.0.min.js"
+      .. ..$ stylesheet: NULL
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : chr "jquerylib"
+      .. ..$ all_files : logi TRUE
+      .. ..- attr(*, "class")= chr "html_dependency"
+      ..$ :List of 10
+      .. ..$ name      : chr "dt-core"
+      .. ..$ version   : chr "1.11.3"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "/Library/Frameworks/R.framework/Versions/4.1/Resources/library/DT/htmlwidgets/lib/datatables"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "js/jquery.dataTables.min.js"
+      .. ..$ stylesheet: chr [1:2] "css/jquery.dataTables.min.css" "css/jquery.dataTables.extra.css"
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : NULL
+      .. ..$ all_files : logi FALSE
+      .. ..- attr(*, "class")= chr "html_dependency"
+      ..$ :List of 10
+      .. ..$ name      : chr "jquery"
+      .. ..$ version   : chr "3.5.1"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "lib/jquery"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "jquery.min.js"
+      .. ..$ stylesheet: NULL
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : chr "crosstalk"
+      .. ..$ all_files : logi TRUE
+      .. ..- attr(*, "class")= chr "html_dependency"
+      ..$ :List of 10
+      .. ..$ name      : chr "crosstalk"
+      .. ..$ version   : chr "1.2.0"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "www"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "js/crosstalk.min.js"
+      .. ..$ stylesheet: chr "css/crosstalk.min.css"
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : chr "crosstalk"
+      .. ..$ all_files : logi TRUE
+      .. ..- attr(*, "class")= chr "html_dependency"
+     $ elementId    : NULL
+     $ preRenderHook:function (instance)  
+     $ jsHooks      : list()
+     - attr(*, "class")= chr [1:2] "datatables" "htmlwidget"
+     - attr(*, "package")= chr "DT"
+
+---
+
+    List of 8
+     $ x            :List of 7
+      ..$ filter   : chr "none"
+      ..$ vertical : logi FALSE
+      ..$ class    : chr "display"
+      ..$ caption  : chr "<caption></caption>"
+      ..$ data     :'data.frame':	150 obs. of  5 variables:
+      .. ..$ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+      .. ..$ Sepal.Length: chr [1:150] "<span style=\"     \" >5.10</span>" "<span style=\"     \" >4.90</span>" "<span style=\"     \" >4.70</span>" "<span style=\"     \" >4.60</span>" ...
+      .. ..$ Sepal.Width : chr [1:150] "<span style=\"     \" >3.50</span>" "<span style=\"     \" >3.00</span>" "<span style=\"     \" >3.20</span>" "<span style=\"     \" >3.10</span>" ...
+      .. ..$ Petal.Length: chr [1:150] "<span style=\"     \" >1.40</span>" "<span style=\"     \" >1.40</span>" "<span style=\"     \" >1.30</span>" "<span style=\"     \" >1.50</span>" ...
+      .. ..$ Petal.Width : chr [1:150] "<span style=\"     \" >0.200</span>" "<span style=\"     \" >0.200</span>" "<span style=\"     \" >0.200</span>" "<span style=\"     \" >0.200</span>" ...
+      ..$ container: chr "<table class=\"display\">\n  <thead>\n    <tr>\n      <th rowspan=\"2\">Species</th>\n      <th colspan=\"2\" c"| __truncated__
+      ..$ options  :List of 4
+      .. ..$ columnDefs  :List of 1
+      .. .. ..$ :List of 2
+      .. .. .. ..$ className: chr "dt-center"
+      .. .. .. ..$ targets  : int [1:5] 0 1 2 3 4
+      .. ..$ order       : list()
+      .. ..$ autoWidth   : logi FALSE
+      .. ..$ orderClasses: logi FALSE
+      .. ..- attr(*, "escapeIdx")= chr "false"
+      ..- attr(*, "colnames")= chr [1:5] "Species" "Sepal.Length" "Sepal.Width" "Petal.Length" ...
+      ..- attr(*, "rownames")= logi FALSE
+     $ width        : NULL
+     $ height       : NULL
+     $ sizingPolicy :List of 6
+      ..$ defaultWidth : NULL
+      ..$ defaultHeight: NULL
+      ..$ padding      : NULL
+      ..$ viewer       :List of 6
+      .. ..$ defaultWidth : NULL
+      .. ..$ defaultHeight: NULL
+      .. ..$ padding      : NULL
+      .. ..$ fill         : logi TRUE
+      .. ..$ suppress     : logi FALSE
+      .. ..$ paneHeight   : NULL
+      ..$ browser      :List of 5
+      .. ..$ defaultWidth : NULL
+      .. ..$ defaultHeight: NULL
+      .. ..$ padding      : NULL
+      .. ..$ fill         : logi FALSE
+      .. ..$ external     : logi FALSE
+      ..$ knitr        :List of 3
+      .. ..$ defaultWidth : chr "100%"
+      .. ..$ defaultHeight: chr "auto"
+      .. ..$ figure       : logi FALSE
+     $ dependencies :List of 4
+      ..$ :List of 10
+      .. ..$ name      : chr "jquery"
+      .. ..$ version   : chr "3.6.0"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "lib/3.6.0"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "jquery-3.6.0.min.js"
+      .. ..$ stylesheet: NULL
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : chr "jquerylib"
+      .. ..$ all_files : logi TRUE
+      .. ..- attr(*, "class")= chr "html_dependency"
+      ..$ :List of 10
+      .. ..$ name      : chr "dt-core"
+      .. ..$ version   : chr "1.11.3"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "/Library/Frameworks/R.framework/Versions/4.1/Resources/library/DT/htmlwidgets/lib/datatables"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "js/jquery.dataTables.min.js"
+      .. ..$ stylesheet: chr [1:2] "css/jquery.dataTables.min.css" "css/jquery.dataTables.extra.css"
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : NULL
+      .. ..$ all_files : logi FALSE
+      .. ..- attr(*, "class")= chr "html_dependency"
+      ..$ :List of 10
+      .. ..$ name      : chr "jquery"
+      .. ..$ version   : chr "3.5.1"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "lib/jquery"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "jquery.min.js"
+      .. ..$ stylesheet: NULL
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : chr "crosstalk"
+      .. ..$ all_files : logi TRUE
+      .. ..- attr(*, "class")= chr "html_dependency"
+      ..$ :List of 10
+      .. ..$ name      : chr "crosstalk"
+      .. ..$ version   : chr "1.2.0"
+      .. ..$ src       :List of 1
+      .. .. ..$ file: chr "www"
+      .. ..$ meta      : NULL
+      .. ..$ script    : chr "js/crosstalk.min.js"
+      .. ..$ stylesheet: chr "css/crosstalk.min.css"
+      .. ..$ head      : NULL
+      .. ..$ attachment: NULL
+      .. ..$ package   : chr "crosstalk"
+      .. ..$ all_files : logi TRUE
+      .. ..- attr(*, "class")= chr "html_dependency"
+     $ elementId    : NULL
+     $ preRenderHook:function (instance)  
+     $ jsHooks      : list()
+     - attr(*, "class")= chr [1:2] "datatables" "htmlwidget"
+     - attr(*, "package")= chr "DT"
+
