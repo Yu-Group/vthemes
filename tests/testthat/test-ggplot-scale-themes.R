@@ -1,4 +1,5 @@
 test_that("ggplot scale themes work properly", {
+  skip_on_ci()
   require(scales)
   require(ggplot2)
 

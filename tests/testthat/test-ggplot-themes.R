@@ -1,4 +1,5 @@
 test_that("ggplot themes work properly", {
+  skip_on_ci()
   require(ggplot2)
 
   plt <- ggplot(iris) +

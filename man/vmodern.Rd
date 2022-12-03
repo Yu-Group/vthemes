@@ -15,7 +15,7 @@ vmodern(
   fig_caption = TRUE,
   highlight = "kate",
   lightbox = TRUE,
-  thumbnails = TRUE,
+  thumbnails = FALSE,
   gallery = FALSE,
   cards = TRUE,
   pandoc_args = NULL,
