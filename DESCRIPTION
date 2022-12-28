@@ -3,29 +3,32 @@ Title: Modern Themes for `ggplot2` and R Markdown Documents
 Version: 0.0.0.9000
 Authors@R: 
     person("Tiffany", "Tang", , "tiffany.tang@berkeley.edu", role = c("aut", "cre"))
-Description: Some modern themes and utility functions for making beautiful `ggplot2` plots and R Markdown documents.
+Description: Some modern themes and utility functions for making beautiful
+    `ggplot2` plots and R Markdown documents.
 License: GPL (>= 3)
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+Imports: 
+    bookdown,
+    dplyr,
+    DT,
+    ggplot2,
+    htmltools,
+    kableExtra,
+    knitr,
+    magrittr,
+    purrr,
+    R.utils,
+    rmarkdown,
+    rmdformats,
+    scales,
+    stringr,
+    viridis,
+    viridisLite
 Suggests: 
     testthat (>= 3.0.0),
     vdiffr
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
-Imports: 
-    stringr,
-    magrittr,
-    dplyr,
-    ggplot2,
-    viridis,
-    viridisLite,
-    purrr,
-    knitr,
-    kableExtra,
-    DT,
-    bookdown,
-    htmltools,
-    rmarkdown,
-    scales,
-    R.utils
-VignetteBuilder: knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.2
