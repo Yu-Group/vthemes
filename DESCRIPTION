@@ -1,9 +1,9 @@
 Package: vthemes
 Title: Modern Themes for `ggplot2` and R Markdown Documents
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Tiffany", "Tang", , "tiffany.tang@berkeley.edu", role = c("aut", "cre"))
-Description: Some modern themes and utility functions for making beautiful
+Description: Modern themes and utility functions for making beautiful
     `ggplot2` plots and R Markdown documents.
 License: GPL (>= 3)
 Imports: 
