@@ -96,16 +96,16 @@ theme_vmodern <- function(base_family = "",
     ggplot2::theme(
       axis.title = ggplot2::element_text(size = axis_title_size, face = "bold"),
       axis.text = ggplot2::element_text(size = axis_text_size),
-      axis.line = ggplot2::element_line(size = axis_line_width, color = "black"),
+      axis.line = ggplot2::element_line(linewidth = axis_line_width, color = "black"),
       axis.ticks = ggplot2::element_line(
-        size = ifelse(show_ticks, ggplot2::rel(1), 0), colour = "black"
+        linewidth = ifelse(show_ticks, ggplot2::rel(1), 0), colour = "black"
       ),
       axis.text.x = ggplot2::element_text(
         angle = ifelse(x_text_angle, 45, 0),
         hjust = ifelse(x_text_angle, 1, 0.5)
       ),
       panel.grid.major = ggplot2::element_line(
-        colour = grid_color, size = ggplot2::rel(0.5)
+        colour = grid_color, linewidth = ggplot2::rel(0.5)
       ),
       panel.grid.minor = ggplot2::element_blank(),
       panel.background = ggplot2::element_rect(fill = bg_color),
