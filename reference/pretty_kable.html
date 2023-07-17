@@ -111,8 +111,9 @@ For further details, see <code><a href="https://rdrr.io/pkg/knitr/man/kable.html
 
 
 <dt>bold_function</dt>
-<dd><p>Optional function string or vector of function strings
-to use for bolding entries, e.g. ". == max(.)" or ". &gt;= 0.5".</p></dd>
+<dd><p>Optional function or vector of functions
+to use for bolding entries, e.g. <code>function(x) x == max(x)</code> or
+<code>function(x) x &gt;= 0.5</code>.</p></dd>
 
 
 <dt>bold_margin</dt>
@@ -1263,7 +1264,7 @@ returns a list of two:</p><dl><dt>kable</dt>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Bold max value of each numeric column of Iris data in red</span></span></span>
 <span class="r-in"><span><span class="fu">pretty_kable</span><span class="op">(</span><span class="va">iris</span>, caption <span class="op">=</span> <span class="st">"Iris Data Table"</span>, scroll <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>            bold_function <span class="op">=</span> <span class="st">". == max(.)"</span>, bold_margin <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>            bold_function <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, bold_margin <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>            bold_scheme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>            bold_color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div style="border: 1px solid #ddd; padding: 5px; "&gt;&lt;table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;"&gt;</span>
@@ -2335,7 +2336,7 @@ returns a list of two:</p><dl><dt>kable</dt>
 <span class="r-in"><span><span class="fu">pretty_kable</span><span class="op">(</span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">Species</span><span class="op">)</span>, sigfig <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>            caption <span class="op">=</span> <span class="st">"Iris Data Table"</span>, format <span class="op">=</span> <span class="st">"latex"</span>,</span></span>
 <span class="r-in"><span>            scroll <span class="op">=</span> <span class="cn">TRUE</span>, na_disp <span class="op">=</span> <span class="st">"NA"</span>,</span></span>
-<span class="r-in"><span>            bold_function <span class="op">=</span> <span class="st">". == min(.)"</span>, bold_margin <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>            bold_function <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, bold_margin <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>            bold_scheme <span class="op">=</span> <span class="cn">TRUE</span>, bold_color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> \begin{table}[H]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
