@@ -40,8 +40,9 @@ decimal places.}
 
 \item{na_disp}{Character string to display if NA entry is found in table.}
 
-\item{bold_function}{Optional function string or vector of function strings
-to use for bolding entries, e.g. ". == max(.)" or ". >= 0.5".}
+\item{bold_function}{Optional function or vector of functions
+to use for bolding entries, e.g. \code{function(x) x == max(x)} or
+\code{function(x) x >= 0.5}.}
 
 \item{bold_margin}{Specifies the margins of X that will be used to evaluate
 \code{bold_function} across, i.e., 0 = across entire matrix, 1 = across

@@ -16,8 +16,9 @@
 #' @param caption The table caption.
 #' @param format One of "html" or "latex", indicating the output format.
 #' @param na_disp Character string to display if NA entry is found in table.
-#' @param bold_function Optional function string or vector of function strings
-#'   to use for bolding entries, e.g. ". == max(.)" or ". >= 0.5".
+#' @param bold_function Optional function or vector of functions
+#'   to use for bolding entries, e.g. \code{function(x) x == max(x)} or
+#'   \code{function(x) x >= 0.5}.
 #' @param bold_margin Specifies the margins of X that will be used to evaluate
 #'   \code{bold_function} across, i.e., 0 = across entire matrix, 1 = across
 #'   rows, and 2 = across columns. Required if \code{bold_function = TRUE}.
@@ -59,7 +60,7 @@
 #'
 #' # Bold max value of each numeric column of Iris data in red
 #' pretty_kable(iris, caption = "Iris Data Table", scroll = TRUE,
-#'             bold_function = ". == max(.)", bold_margin = 2,
+#'             bold_function = function(x) x == max(x), bold_margin = 2,
 #'             bold_scheme = c(TRUE, TRUE, TRUE, TRUE, FALSE),
 #'             bold_color = "red")
 #'
@@ -67,7 +68,7 @@
 #' pretty_kable(iris %>% dplyr::select(-Species), sigfig = TRUE,
 #'             caption = "Iris Data Table", format = "latex",
 #'             scroll = TRUE, na_disp = "NA",
-#'             bold_function = ". == min(.)", bold_margin = 1,
+#'             bold_function = function(x) x == min(x), bold_margin = 1,
 #'             bold_scheme = TRUE, bold_color = "black")
 #' @export
 pretty_kable <- function(X, digits = 3, sigfig = TRUE, escape = FALSE,
@@ -91,12 +92,15 @@ pretty_kable <- function(X, digits = 3, sigfig = TRUE, escape = FALSE,
   # error checking
   if (!is.null(bold_function)) {
     if (is.null(bold_margin)) {
-      stop("bold_margin must be specified to bold entries in kable.")
+      stop("bold_margin must be specified to bold entries in table.")
     } else if (bold_margin == 0) {
       if (length(bold_scheme) == 1) {
         bold_scheme <- rep(bold_scheme, ncol(X))
       } else if (length(bold_scheme) != ncol(X)) {
         stop("bold_scheme must be a scalar or vector of length ncol(X).")
+      }
+      if ((length(bold_function) != 1) || !is.function(bold_function)) {
+        stop("bold_function should be a function.")
       }
     } else if (bold_margin == 1) {
       if (length(bold_scheme) == 1) {
@@ -104,19 +108,26 @@ pretty_kable <- function(X, digits = 3, sigfig = TRUE, escape = FALSE,
       } else if (length(bold_scheme) != nrow(X)) {
         stop("bold_scheme must be a scalar or vector of length nrow(X).")
       }
+      if (!(length(bold_function) %in% c(1, nrow(X)))) {
+        stop(
+          paste0("bold_function must be a function or vector of functions ",
+                 "of length ", nrow(X))
+        )
+      }
     } else if (bold_margin == 2) {
       if (length(bold_scheme) == 1) {
         bold_scheme <- rep(bold_scheme, ncol(X))
       } else if (length(bold_scheme) != ncol(X)) {
         stop("bold_scheme must be a scalar or vector of length ncol(X).")
       }
+      if (!(length(bold_function) %in% c(1, ncol(X)))) {
+        stop(
+          paste0("bold_function must be a function or vector of functions ",
+                 "of length ", ncol(X))
+        )
+      }
     } else {
       stop("bold_margin must be NULL, 0, 1, or 2.")
-    }
-
-    if (!(length(bold_function) %in% c(1, length(bold_scheme)))) {
-      stop(paste0("bold_function must be a scalar or vector of length ",
-                  length(bold_scheme)))
     }
   }
 
@@ -129,8 +140,6 @@ pretty_kable <- function(X, digits = 3, sigfig = TRUE, escape = FALSE,
   } else {
 
     if (bold_margin == 0) {
-      bold_function <- stringr::str_replace(bold_function, "\\(.\\)",
-                                            "\\(X[, bold_scheme]\\)")
       kable_df <- X
       int_cols <- sapply(X, is.integer)
     } else if (bold_margin == 1) {
@@ -141,40 +150,114 @@ pretty_kable <- function(X, digits = 3, sigfig = TRUE, escape = FALSE,
       int_cols <- sapply(X, is.integer)
     }
 
-    for (f in unique(bold_function)) {
-      kable_cols <- colnames(kable_df)
+    kable_cols <- colnames(kable_df)
+    if (bold_margin == 0) {
+      cell_hlt <- bold_function(kable_df[, bold_scheme, drop = FALSE])
+      cell_hlt_idx <- which(cell_hlt, arr.ind = TRUE)
+
       kable_df <- kable_df %>%
-        # for integers
-        dplyr::mutate(dplyr::across(
-          kable_cols[bold_scheme & int_cols & (bold_function == f)],
-          function(.) {
-            dplyr::case_when(
-              is.na(.) ~ na_disp,
-              eval(parse(text = f)) ~
-                kableExtra::cell_spec(., color = bold_color,
-                                      bold = T, format = format),
-              TRUE ~ kableExtra::cell_spec(., bold = F, format = format)
+        dplyr::mutate(
+          dplyr::across(
+            tidyselect::all_of(kable_cols[bold_scheme & int_cols]),
+            function(x) {
+              dplyr::case_when(
+                is.na(x) ~ na_disp,
+                TRUE ~ kableExtra::cell_spec(x, bold = FALSE, format = format)
+              )
+            }
+          ),
+          dplyr::across(
+            tidyselect::all_of(kable_cols[bold_scheme & !int_cols]),
+            function(x) {
+              dplyr::case_when(
+                is.na(x) ~ na_disp,
+                TRUE ~ kableExtra::cell_spec(
+                  formatC(x, digits = digits, format = dig_format, flag = "#"),
+                  bold = FALSE, format = format
+                )
+              )
+            }
+          )
+        )
+
+      for (i in 1:nrow(cell_hlt_idx)) {
+        row_idx <- cell_hlt_idx[i, "row"]
+        col_idx <- cell_hlt_idx[i, "col"]
+        col_name <- kable_cols[bold_scheme][col_idx]
+        if (int_cols[bold_scheme][col_idx]) {
+          kable_df[row_idx, col_name] <- kableExtra::cell_spec(
+            X[row_idx, col_name],
+            color = bold_color, bold = TRUE, format = format
+          )
+        } else {
+          kable_df[row_idx, col_name] <- kableExtra::cell_spec(
+            formatC(X[row_idx, col_name], digits = digits,
+                    format = dig_format, flag = "#"),
+            color = bold_color, bold = TRUE, format = format
+          )
+        }
+      }
+    } else if (length(bold_function) == 1) {
+      kable_df <- kable_df %>%
+        dplyr::mutate(
+          dplyr::across(
+            tidyselect::all_of(kable_cols[bold_scheme & int_cols]),
+            function(x) {
+              dplyr::case_when(
+                is.na(x) ~ na_disp,
+                bold_function(x) ~ kableExtra::cell_spec(
+                  x, color = bold_color, bold = TRUE, format = format
+                ),
+                TRUE ~ kableExtra::cell_spec(x, bold = FALSE, format = format)
+              )
+            }
+          ),
+          dplyr::across(
+            tidyselect::all_of(kable_cols[bold_scheme & !int_cols]),
+            function(x) {
+              dplyr::case_when(
+                is.na(x) ~ na_disp,
+                bold_function(x) ~ kableExtra::cell_spec(
+                  formatC(x, digits = digits, format = dig_format, flag = "#"),
+                  color = bold_color, bold = TRUE, format = format
+                ),
+                TRUE ~ kableExtra::cell_spec(
+                  formatC(x, digits = digits, format = dig_format, flag = "#"),
+                  bold = FALSE, format = format
+                )
+              )
+            }
+          )
+        )
+    } else {
+      for (j in 1:ncol(kable_df)) {
+        if (bold_scheme[j]) {
+          x <- kable_df[, j]
+          if (int_cols[j]) {
+            # for integers columns
+            kable_df[, j] <- dplyr::case_when(
+              is.na(x) ~ na_disp,
+              bold_function(x) ~ kableExtra::cell_spec(
+                x, color = bold_color, bold = TRUE, format = format
+              ),
+              TRUE ~ kableExtra::cell_spec(x, bold = FALSE, format = format)
+            )
+          } else {
+            # for numeric columns
+            kable_df[, j] <- dplyr::case_when(
+              is.na(x) ~ na_disp,
+              bold_function(x) ~ kableExtra::cell_spec(
+                formatC(x, digits = digits, format = dig_format, flag = "#"),
+                color = bold_color, bold = TRUE, format = format
+              ),
+              TRUE ~ kableExtra::cell_spec(
+                formatC(x, digits = digits, format = dig_format, flag = "#"),
+                bold = FALSE, format = format
+              )
             )
           }
-        )) %>%
-        # for non-integers
-        dplyr::mutate(dplyr::across(
-          kable_cols[bold_scheme & !int_cols & (bold_function == f)],
-          function(.) {
-            dplyr::case_when(
-              is.na(.) ~ na_disp,
-              eval(parse(text = f)) ~
-                kableExtra::cell_spec(formatC(., digits = digits,
-                                              format = dig_format, flag = "#"),
-                                      color = bold_color, bold = T,
-                                      format = format),
-              TRUE ~
-                kableExtra::cell_spec(formatC(., digits = digits,
-                                              format = dig_format, flag = "#"),
-                                      bold = F, format = format)
-            )
-          }
-        ))
+        }
+      }
     }
 
     if (bold_margin == 1) {
@@ -184,22 +267,28 @@ pretty_kable <- function(X, digits = 3, sigfig = TRUE, escape = FALSE,
 
   # format numeric columns
   kable_df <- kable_df %>%
-    dplyr::mutate(dplyr::across(
-      where(is.numeric) & !where(is.integer),
-      function(.) {
-        ifelse(is.na(.), na_disp,
-               kableExtra::cell_spec(formatC(., digits = digits,
-                                             format = dig_format,
-                                             flag = "#"),
-                                     format = format))
-      }
-    )) %>%
-    dplyr::mutate(dplyr::across(
-      where(is.integer),
-      function(.) {
-        ifelse(is.na(.), na_disp, kableExtra::cell_spec(., format = format))
-      }
-    ))
+    dplyr::mutate(
+      dplyr::across(
+        where(is.numeric) & !where(is.integer),
+        function(x) {
+          ifelse(
+            is.na(x), na_disp,
+            kableExtra::cell_spec(
+              formatC(x, digits = digits, format = dig_format, flag = "#"),
+              format = format
+            )
+          )
+        }
+      )
+    ) %>%
+    dplyr::mutate(
+      dplyr::across(
+        where(is.integer),
+        function(x) {
+          ifelse(is.na(x), na_disp, kableExtra::cell_spec(x, format = format))
+        }
+      )
+    )
   rownames(kable_df) <- rownames(X)
   colnames(kable_df) <- colnames(X)
 
@@ -239,8 +328,9 @@ pretty_kable <- function(X, digits = 3, sigfig = TRUE, escape = FALSE,
 #'   [DT::datatable()] for details.
 #' @param caption The table caption.
 #' @param na_disp Character string to display if NA entry is found in table.
-#' @param bold_function Optional function string or vector of function strings
-#'   to use for bolding entries, e.g. ". == max(.)" or ". >= 0.5".
+#' @param bold_function Optional function or vector of functions
+#'   to use for bolding entries, e.g. \code{function(x) x == max(x)} or
+#'   \code{function(x) x >= 0.5}.
 #' @param bold_margin Specifies the margins of X that will be used to evaluate
 #'   \code{bold_function} across, i.e., 0 = across entire matrix, 1 = across
 #'   rows, and 2 = across columns. Required if \code{bold_function = TRUE}.
@@ -274,14 +364,14 @@ pretty_kable <- function(X, digits = 3, sigfig = TRUE, escape = FALSE,
 #'
 #' # Bold max value of each numeric column of Iris data in red
 #' pretty_DT(iris, caption = "Iris Data Table",
-#'          bold_function = ". == max(.)", bold_margin = 2,
+#'          bold_function = function(x) x == max(x), bold_margin = 2,
 #'          bold_scheme = c(TRUE, TRUE, TRUE, TRUE, FALSE), bold_color = "red")
 #'
 #' # Bold min value of each row in Iris data
 #' pretty_DT(iris %>% dplyr::select(-Species),
 #'          sigfig = TRUE, caption = "Iris Data Table",
-#'          na_disp = "NA", bold_function = ". == min(.)", bold_margin = 1,
-#'          bold_scheme = TRUE, bold_color = "black")
+#'          na_disp = "NA", bold_function = function(x) x == min(x),
+#'          bold_margin = 1, bold_scheme = TRUE, bold_color = "black")
 #'
 #' # Add grouped column header
 #' pretty_DT(iris[, c(5, 1:4)],
@@ -308,6 +398,7 @@ pretty_DT <- function(X, digits = 3, sigfig = T,
   } else {
     dig_format <- "f"
   }
+  format <- "html"
 
   if (!("columnDefs" %in% names(options))) {  # make default center alignment
     if (rownames) {
@@ -322,12 +413,15 @@ pretty_DT <- function(X, digits = 3, sigfig = T,
   # error checking
   if (!is.null(bold_function)) {
     if (is.null(bold_margin)) {
-      stop("bold_margin must be specified to bold entries in datatable.")
+      stop("bold_margin must be specified to bold entries in table.")
     } else if (bold_margin == 0) {
       if (length(bold_scheme) == 1) {
         bold_scheme <- rep(bold_scheme, ncol(X))
       } else if (length(bold_scheme) != ncol(X)) {
         stop("bold_scheme must be a scalar or vector of length ncol(X).")
+      }
+      if ((length(bold_function) != 1) || !is.function(bold_function)) {
+        stop("bold_function should be a function.")
       }
     } else if (bold_margin == 1) {
       if (length(bold_scheme) == 1) {
@@ -335,19 +429,26 @@ pretty_DT <- function(X, digits = 3, sigfig = T,
       } else if (length(bold_scheme) != nrow(X)) {
         stop("bold_scheme must be a scalar or vector of length nrow(X).")
       }
+      if (!(length(bold_function) %in% c(1, nrow(X)))) {
+        stop(
+          paste0("bold_function must be a function or vector of functions ",
+                 "of length ", nrow(X))
+        )
+      }
     } else if (bold_margin == 2) {
       if (length(bold_scheme) == 1) {
         bold_scheme <- rep(bold_scheme, ncol(X))
       } else if (length(bold_scheme) != ncol(X)) {
         stop("bold_scheme must be a scalar or vector of length ncol(X).")
       }
+      if (!(length(bold_function) %in% c(1, ncol(X)))) {
+        stop(
+          paste0("bold_function must be a function or vector of functions ",
+                 "of length ", ncol(X))
+        )
+      }
     } else {
       stop("bold_margin must be NULL, 0, 1, or 2.")
-    }
-
-    if (!(length(bold_function) %in% c(1, length(bold_scheme)))) {
-      stop(paste0("bold_function must be a scalar or vector of length ",
-                  length(bold_scheme)))
     }
   }
 
@@ -360,8 +461,6 @@ pretty_DT <- function(X, digits = 3, sigfig = T,
   } else {
 
     if (bold_margin == 0) {
-      bold_function <- stringr::str_replace(bold_function, "\\(.\\)",
-                                            "\\(X[, bold_scheme]\\)")
       dt_df <- X
       int_cols <- sapply(X, is.integer)
     } else if (bold_margin == 1) {
@@ -372,40 +471,114 @@ pretty_DT <- function(X, digits = 3, sigfig = T,
       int_cols <- sapply(X, is.integer)
     }
 
-    for (f in unique(bold_function)) {
-      dt_cols <- colnames(dt_df)
+    dt_cols <- colnames(dt_df)
+    if (bold_margin == 0) {
+      cell_hlt <- bold_function(dt_df[, bold_scheme, drop = FALSE])
+      cell_hlt_idx <- which(cell_hlt, arr.ind = TRUE)
+
       dt_df <- dt_df %>%
-        # for integers
-        dplyr::mutate(dplyr::across(
-          dt_cols[bold_scheme & int_cols & (bold_function == f)],
-          function(.) {
-            dplyr::case_when(
-              is.na(.) ~ na_disp,
-              eval(parse(text = f)) ~
-                kableExtra::cell_spec(., color = bold_color,
-                                      bold = T, format = "html"),
-              TRUE ~ kableExtra::cell_spec(., bold = F, format = "html")
+        dplyr::mutate(
+          dplyr::across(
+            tidyselect::all_of(dt_cols[bold_scheme & int_cols]),
+            function(x) {
+              dplyr::case_when(
+                is.na(x) ~ na_disp,
+                TRUE ~ kableExtra::cell_spec(x, bold = FALSE, format = format)
+              )
+            }
+          ),
+          dplyr::across(
+            tidyselect::all_of(dt_cols[bold_scheme & !int_cols]),
+            function(x) {
+              dplyr::case_when(
+                is.na(x) ~ na_disp,
+                TRUE ~ kableExtra::cell_spec(
+                  formatC(x, digits = digits, format = dig_format, flag = "#"),
+                  bold = FALSE, format = format
+                )
+              )
+            }
+          )
+        )
+
+      for (i in 1:nrow(cell_hlt_idx)) {
+        row_idx <- cell_hlt_idx[i, "row"]
+        col_idx <- cell_hlt_idx[i, "col"]
+        col_name <- dt_cols[bold_scheme][col_idx]
+        if (int_cols[bold_scheme][col_idx]) {
+          dt_df[row_idx, col_name] <- kableExtra::cell_spec(
+            X[row_idx, col_name],
+            color = bold_color, bold = TRUE, format = format
+          )
+        } else {
+          dt_df[row_idx, col_name] <- kableExtra::cell_spec(
+            formatC(X[row_idx, col_name], digits = digits,
+                    format = dig_format, flag = "#"),
+            color = bold_color, bold = TRUE, format = format
+          )
+        }
+      }
+    } else if (length(bold_function) == 1) {
+      dt_df <- dt_df %>%
+        dplyr::mutate(
+          dplyr::across(
+            tidyselect::all_of(dt_cols[bold_scheme & int_cols]),
+            function(x) {
+              dplyr::case_when(
+                is.na(x) ~ na_disp,
+                bold_function(x) ~ kableExtra::cell_spec(
+                  x, color = bold_color, bold = TRUE, format = format
+                ),
+                TRUE ~ kableExtra::cell_spec(x, bold = FALSE, format = format)
+              )
+            }
+          ),
+          dplyr::across(
+            tidyselect::all_of(dt_cols[bold_scheme & !int_cols]),
+            function(x) {
+              dplyr::case_when(
+                is.na(x) ~ na_disp,
+                bold_function(x) ~ kableExtra::cell_spec(
+                  formatC(x, digits = digits, format = dig_format, flag = "#"),
+                  color = bold_color, bold = TRUE, format = format
+                ),
+                TRUE ~ kableExtra::cell_spec(
+                  formatC(x, digits = digits, format = dig_format, flag = "#"),
+                  bold = FALSE, format = format
+                )
+              )
+            }
+          )
+        )
+    } else {
+      for (j in 1:ncol(dt_df)) {
+        if (bold_scheme[j]) {
+          x <- dt_df[, j]
+          if (int_cols[j]) {
+            # for integers columns
+            dt_df[, j] <- dplyr::case_when(
+              is.na(x) ~ na_disp,
+              bold_function(x) ~ kableExtra::cell_spec(
+                x, color = bold_color, bold = TRUE, format = format
+              ),
+              TRUE ~ kableExtra::cell_spec(x, bold = FALSE, format = format)
+            )
+          } else {
+            # for numeric columns
+            dt_df[, j] <- dplyr::case_when(
+              is.na(x) ~ na_disp,
+              bold_function(x) ~ kableExtra::cell_spec(
+                formatC(x, digits = digits, format = dig_format, flag = "#"),
+                color = bold_color, bold = TRUE, format = format
+              ),
+              TRUE ~ kableExtra::cell_spec(
+                formatC(x, digits = digits, format = dig_format, flag = "#"),
+                bold = FALSE, format = format
+              )
             )
           }
-        )) %>%
-        # for non-integers
-        dplyr::mutate(dplyr::across(
-          dt_cols[bold_scheme & !int_cols & (bold_function == f)],
-          function(.) {
-            dplyr::case_when(
-              is.na(.) ~ na_disp,
-              eval(parse(text = f)) ~
-                kableExtra::cell_spec(formatC(., digits = digits,
-                                              format = dig_format, flag = "#"),
-                                      color = bold_color, bold = T,
-                                      format = "html"),
-              TRUE ~
-                kableExtra::cell_spec(formatC(., digits = digits,
-                                              format = dig_format, flag = "#"),
-                                      bold = F, format = "html")
-            )
-          }
-        ))
+        }
+      }
     }
 
     if (bold_margin == 1) {
@@ -415,22 +588,28 @@ pretty_DT <- function(X, digits = 3, sigfig = T,
 
   # format numeric columns
   dt_df <- dt_df %>%
-    dplyr::mutate(dplyr::across(
-      where(is.numeric) & !where(is.integer),
-      function(.) {
-        ifelse(is.na(.), na_disp,
-               kableExtra::cell_spec(formatC(., digits = digits,
-                                             format = dig_format,
-                                             flag = "#"),
-                                     format = "html"))
-      }
-    )) %>%
-    dplyr::mutate(dplyr::across(
-      where(is.integer),
-      function(.) {
-        ifelse(is.na(.), na_disp, kableExtra::cell_spec(., format = "html"))
-      }
-    ))
+    dplyr::mutate(
+      dplyr::across(
+        where(is.numeric) & !where(is.integer),
+        function(x) {
+          ifelse(
+            is.na(x), na_disp,
+            kableExtra::cell_spec(
+              formatC(x, digits = digits, format = dig_format, flag = "#"),
+              format = "html"
+            )
+          )
+        }
+      )
+    ) %>%
+    dplyr::mutate(
+      dplyr::across(
+        where(is.integer),
+        function(x) {
+          ifelse(is.na(x), na_disp, kableExtra::cell_spec(x, format = "html"))
+        }
+      )
+    )
   dt_df[is.na(dt_df)] <- na_disp
   rownames(dt_df) <- rownames(X)
   colnames(dt_df) <- colnames(X)

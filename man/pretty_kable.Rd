@@ -50,8 +50,9 @@ For further details, see \code{\link[knitr:kable]{knitr::kable()}}.}
 
 \item{na_disp}{Character string to display if NA entry is found in table.}
 
-\item{bold_function}{Optional function string or vector of function strings
-to use for bolding entries, e.g. ". == max(.)" or ". >= 0.5".}
+\item{bold_function}{Optional function or vector of functions
+to use for bolding entries, e.g. \code{function(x) x == max(x)} or
+\code{function(x) x >= 0.5}.}
 
 \item{bold_margin}{Specifies the margins of X that will be used to evaluate
 \code{bold_function} across, i.e., 0 = across entire matrix, 1 = across
@@ -110,7 +111,7 @@ pretty_kable(iris, align = "c", caption = "Iris Data Table")
 
 # Bold max value of each numeric column of Iris data in red
 pretty_kable(iris, caption = "Iris Data Table", scroll = TRUE,
-            bold_function = ". == max(.)", bold_margin = 2,
+            bold_function = function(x) x == max(x), bold_margin = 2,
             bold_scheme = c(TRUE, TRUE, TRUE, TRUE, FALSE),
             bold_color = "red")
 
@@ -118,6 +119,6 @@ pretty_kable(iris, caption = "Iris Data Table", scroll = TRUE,
 pretty_kable(iris \%>\% dplyr::select(-Species), sigfig = TRUE,
             caption = "Iris Data Table", format = "latex",
             scroll = TRUE, na_disp = "NA",
-            bold_function = ". == min(.)", bold_margin = 1,
+            bold_function = function(x) x == min(x), bold_margin = 1,
             bold_scheme = TRUE, bold_color = "black")
 }

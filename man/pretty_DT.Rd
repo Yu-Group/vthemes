@@ -42,8 +42,9 @@ decimal places.}
 
 \item{na_disp}{Character string to display if NA entry is found in table.}
 
-\item{bold_function}{Optional function string or vector of function strings
-to use for bolding entries, e.g. ". == max(.)" or ". >= 0.5".}
+\item{bold_function}{Optional function or vector of functions
+to use for bolding entries, e.g. \code{function(x) x == max(x)} or
+\code{function(x) x >= 0.5}.}
 
 \item{bold_margin}{Specifies the margins of X that will be used to evaluate
 \code{bold_function} across, i.e., 0 = across entire matrix, 1 = across
@@ -89,14 +90,14 @@ pretty_DT(iris, caption = "Iris Data Table")
 
 # Bold max value of each numeric column of Iris data in red
 pretty_DT(iris, caption = "Iris Data Table",
-         bold_function = ". == max(.)", bold_margin = 2,
+         bold_function = function(x) x == max(x), bold_margin = 2,
          bold_scheme = c(TRUE, TRUE, TRUE, TRUE, FALSE), bold_color = "red")
 
 # Bold min value of each row in Iris data
 pretty_DT(iris \%>\% dplyr::select(-Species),
          sigfig = TRUE, caption = "Iris Data Table",
-         na_disp = "NA", bold_function = ". == min(.)", bold_margin = 1,
-         bold_scheme = TRUE, bold_color = "black")
+         na_disp = "NA", bold_function = function(x) x == min(x),
+         bold_margin = 1, bold_scheme = TRUE, bold_color = "black")
 
 # Add grouped column header
 pretty_DT(iris[, c(5, 1:4)],

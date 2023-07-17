@@ -20,13 +20,13 @@ test_that("pretty_kable works", {
   ## Bold max value of each numeric column of Iris data in red
   expect_snapshot_output(
     pretty_kable(iris, caption = "'Iris Data Table'", scroll = TRUE,
-                bold_function = ". == max(.)", bold_margin = 2,
+                bold_function = function(x) x == max(x), bold_margin = 2,
                 bold_scheme = c(T, T, T, T, F), bold_color = "red",
                 return_df = TRUE)$df
   )
   expect_s3_class(
     pretty_kable(iris, caption = "'Iris Data Table'", scroll = TRUE,
-                bold_function = ". == max(.)", bold_margin = 2,
+                bold_function = function(x) x == max(x), bold_margin = 2,
                 bold_scheme = c(T, T, T, T, F), bold_color = "red"),
     "knitr_kable"
   )
@@ -36,7 +36,7 @@ test_that("pretty_kable works", {
     pretty_kable(iris %>% dplyr::select(-Species), sigfig = T,
                 caption = "'Iris Data Table'", format = "latex",
                 scroll = T, na_disp = "NA",
-                bold_function = ". == min(.)", bold_margin = 1,
+                bold_function = function(x) x == min(x), bold_margin = 1,
                 bold_scheme = T, bold_color = "black",
                 return_df = TRUE)$df
   )
@@ -44,9 +44,17 @@ test_that("pretty_kable works", {
     pretty_kable(iris %>% dplyr::select(-Species), sigfig = T,
                 caption = "'Iris Data Table'", format = "latex",
                 scroll = T, na_disp = "NA",
-                bold_function = ". == min(.)", bold_margin = 1,
+                bold_function = function(x) x == min(x), bold_margin = 1,
                 bold_scheme = T, bold_color = "black"),
     "knitr_kable"
+  )
+
+  ## Bold max value over all numeric columns of Iris data in red
+  expect_snapshot_output(
+    pretty_kable(iris, caption = "'Iris Data Table'", scroll = TRUE,
+                 bold_function = function(x) x == max(x), bold_margin = 0,
+                 bold_scheme = c(T, T, T, T, F), bold_color = "red",
+                 return_df = TRUE)$df
   )
 })
 
@@ -72,13 +80,13 @@ test_that("pretty_DT works", {
   ## Bold max value of each numeric column of Iris data in red
   expect_snapshot_output(
     pretty_DT(iris, caption = "'Iris Data Table'",
-             bold_function = ". == max(.)", bold_margin = 2,
+             bold_function = function(x) x == max(x), bold_margin = 2,
              bold_scheme = c(T, T, T, T, F), bold_color = "red",
              return_df = TRUE)$df
   )
   expect_s3_class(
     pretty_DT(iris, caption = "'Iris Data Table'",
-             bold_function = ". == max(.)", bold_margin = 2,
+             bold_function = function(x) x == max(x), bold_margin = 2,
              bold_scheme = c(T, T, T, T, F), bold_color = "red"),
     "datatables"
   )
@@ -87,15 +95,15 @@ test_that("pretty_DT works", {
   expect_snapshot_output(
     pretty_DT(iris %>% dplyr::select(-Species),
              sigfig = T, caption = "'Iris Data Table'",
-             na_disp = "NA", bold_function = ". == min(.)", bold_margin = 1,
-             bold_scheme = T, bold_color = "black",
+             na_disp = "NA", bold_function = function(x) x == min(x),
+             bold_margin = 1, bold_scheme = T, bold_color = "black",
              return_df = TRUE)$df
   )
   expect_s3_class(
     pretty_DT(iris %>% dplyr::select(-Species),
              sigfig = T, caption = "'Iris Data Table'",
-             na_disp = "NA", bold_function = ". == min(.)", bold_margin = 1,
-             bold_scheme = T, bold_color = "black"),
+             na_disp = "NA", bold_function = function(x) x == min(x),
+             bold_margin = 1, bold_scheme = T, bold_color = "black"),
     "datatables"
   )
 
